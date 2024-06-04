@@ -1,0 +1,18 @@
+{
+  "name": "nirav",
+  "version": "0.0.1",
+  "description": "learning rect",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [
+    "react",
+    "javascript"
+  ],
+  "author": "Nirav Nayi <niravlimbachia031@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^5.91.0"
+  }
+}
