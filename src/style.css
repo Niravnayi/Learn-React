@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    /* .wrapper > .box{
+        height: 100px;
+        width: 100px;
+        background-color: red; 
+    }*/
+
+    .wrapper{
+        @apply flex gap-2; 
+        .box{
+            @apply h-24 w-24 bg-red-400;
+        }
+    }
+}
