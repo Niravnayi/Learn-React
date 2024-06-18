@@ -4,16 +4,7 @@
 
 
 @layer components{
-    /* .wrapper > .box{
-        height: 100px;
-        width: 100px;
-        background-color: red; 
-    }*/
-
-    .wrapper{
-        @apply flex gap-2; 
-        .box{
-            @apply h-24 w-24 bg-red-400;
-        }
+    .btn{
+        @apply rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
     }
 }
