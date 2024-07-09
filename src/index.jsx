@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { createRoot } from "react-dom/client";
 import "./style.css";
-import LifeCyle from "./LifeCycle";
+import { Button } from "./components/ui/button";
+import { Input } from "./components/ui/input";
+import { Slider } from "./components/ui/slider";
 
 // Clear the existing HTML content
 document.body.innerHTML = '<div id="app"></div>';
@@ -9,36 +11,18 @@ document.body.innerHTML = '<div id="app"></div>';
 // Render your React component instead
 const root = createRoot(document.getElementById("app"));
 
-const test = "hello";
-
-LifeCyle.getDerivedStateFromProps = (props, state) => {
-  console.log("getDerivedStateFromProps Life Cycle");
-  return {
-    name: `Mr. ${props.name}`,
-    count:`${props.count}`,
-  };
+const App =() => {
+  return(
+    <div>
+      <Input type="email" placeholder="Email" />
+  <Button variant="destructive">Hello world</Button>
+  <Slider
+      defaultValue={[50]}
+      max={100}
+      step={1}
+      
+    />
+  </div>
+);
 };
-
-export default class App extends Component {
-  state = {
-    name: "rohit",
-  };
-  render() {
-    const { name,count } = this.state;
-    return (
-      <div>
-        <LifeCyle name={name} />
-        <button
-          type="button"
-          onClick={() => {
-            this.setState({ name: "Virat" })
-          }}
-        >
-          Change Name
-        </button>
-      </div>
-    );
-  }
-}
-
 root.render(<App />);
