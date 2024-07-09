@@ -15,7 +15,7 @@ LifeCyle.getDerivedStateFromProps = (props, state) => {
   console.log("getDerivedStateFromProps Life Cycle");
   return {
     name: `Mr. ${props.name}`,
-    test,
+    count:`${props.count}`,
   };
 };
 
@@ -24,14 +24,14 @@ export default class App extends Component {
     name: "rohit",
   };
   render() {
-    const { name } = this.state;
+    const { name,count } = this.state;
     return (
       <div>
         <LifeCyle name={name} />
         <button
           type="button"
           onClick={() => {
-            this.setState({ name: "Virat" });
+            this.setState({ name: "Virat" })
           }}
         >
           Change Name
