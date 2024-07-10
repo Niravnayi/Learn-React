@@ -1,132 +1,56 @@
-import React, { Component } from "react";
-import TodoForm from "./TodoForm";
-import TodoList from "./todoList";
-import TodoFilter from "./todoFilter";
+import React, { Component, createRef } from "react";
+import { Label } from "../components/ui/label";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
 
 export default class Todo extends Component {
   state = {
     todoList: [],
-    todoText: "",
-    filterType: "all",
-    editedItem: [],
   };
 
-  changeText = (event) => {
-    this.setState({ todoText: event.target.value });
+  todoText = createRef();
+
+  addTodo = (e) => {
+    e.preventDefault();
+    const todoTextRef = this.todoText.current;
+    // async code
+    this.setState(
+      ({ todoList }) => {
+        const todoText = todoTextRef.value;
+        return {
+          todoList: [...todoList, todoText],
+        };
+      },
+      () => {
+        // sync code
+        todoTextRef.value = "";
+      }
+    );
   };
-
-  addTodo = (event) => {
-    event.preventDefault();
-
-    this.setState(({ todoText, todoList }) => {
-      return {
-        todoList: [
-          ...todoList,
-          { todoText, isDone: false, id: new Date().valueOf() },
-        ],
-        todoText: "",
-      };
-    });
-  };
-
-  updateTodo = (item) => {
-    this.setState(({ todoList }) => {
-      const index = todoList.findIndex((x) => x.id === item.id);
-      return {
-        todoList: [
-          ...todoList.slice(0, index),
-          {
-            ...todoList[index],
-            isDone: !todoList[index].isDone,
-          },
-          ...todoList.slice(index + 1),
-        ],
-      };
-    });
-  };
-
-  deleteTodo = (item) => {
-    this.setState(({ todoList }) => {
-      const index = todoList.findIndex((x) => x.id === item.id);
-
-      return {
-        todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
-      };
-    });
-  };
-
-  changeEditText =(event,item) => {
-    this.setState(({ todoList }) => {
-      const index = todoList.findIndex(
-        (x) => x.id === item.id
-      );
-      return {
-        todoList: [
-          ...todoList.slice(0, index),
-          {
-            ...todoList[index],
-            todoText: event.target.value,
-          },
-          ...todoList.slice(index + 1),
-        ],
-      };
-    });
-  }
-
-  updateItem =  (event,item) => {
-    event.preventDefault();
-
-    this.setState(({ editedItem }) => {
-      const index = editedItem.findIndex(
-        (x) => x.id === item.id
-      );
-      return {
-        editedItem: [
-          ...editedItem.slice(0, index),
-          ...editedItem.slice(index + 1),
-        ],
-      };
-    });
-  }
-  editItem = (item) => {
-    this.setState(({ editedItem }) => {
-      return {
-        editedItem: [...editedItem, item],
-      };
-    });
-  }
-  changeFiltertype = (filterType) => {
-    this.setState({filterType})
-  }
 
   render() {
-    const { todoList, todoText, filterType, editedItem } = this.state;
-
+    console.log("render");
     return (
-      <div className="flex flex-col items-center h-screen overflow-hidden">
-        <h1 className="text-4xl font-semibold my-6">Todo App</h1>
-        {/* form */}
-       <TodoForm 
-       todoText={todoText}
-       changeText={this.changeText}
-       addTodo={this.addTodo}
-        />
-        {/* list */}
-     <TodoList 
-      todoList={todoList}
-      filterType={filterType}
-      editedItem={editedItem}
-      updateItem={this.updateItem}
-      updateTodo={this.updateTodo}
-      changeEditText={this.changeEditText}
-      editItem={this.editItem}
-      deleteTodo={this.deleteTodo}
-     />
-        {/* filter type */}
-       <TodoFilter 
-       filterType={filterType}
-       changeFiltertype={this.changeFiltertype}
-       />
+      <div className="h-screen bg-slate-300 flex flex-col items-center p-4">
+        <h1>Todo List</h1>
+
+        <form className="flex m-5" onSubmit={this.addTodo}>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="todoText" className="sr-only">
+              Todo Text
+            </Label>
+            <Input
+              ref={this.todoText}
+              type="text"
+              id="todoText"
+              placeholder="Enter your todo here.."
+              className="rounded-r-none"
+            />
+          </div>
+          <Button type="submit" className="rounded-l-none">
+            Add Todo
+          </Button>
+        </form>
       </div>
     );
   }
