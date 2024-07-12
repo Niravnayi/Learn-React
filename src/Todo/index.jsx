@@ -1,7 +1,6 @@
 import React, { Component, createRef } from "react";
-import { Label } from "../components/ui/label";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import TodoForm from "./todoForm";
+import TodoList from "./todoList";
 
 export default class Todo extends Component {
   state = {
@@ -18,7 +17,10 @@ export default class Todo extends Component {
       ({ todoList }) => {
         const todoText = todoTextRef.value;
         return {
-          todoList: [...todoList, todoText],
+          todoList: [
+            ...todoList,
+            { id: new Date().valueOf(), text: todoText, isDone: false },
+          ],
         };
       },
       () => {
@@ -29,28 +31,12 @@ export default class Todo extends Component {
   };
 
   render() {
-    console.log("render");
+    const { todoList } = this.state;
     return (
       <div className="h-screen bg-slate-300 flex flex-col items-center p-4">
         <h1>Todo List</h1>
-
-        <form className="flex m-5" onSubmit={this.addTodo}>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="todoText" className="sr-only">
-              Todo Text
-            </Label>
-            <Input
-              ref={this.todoText}
-              type="text"
-              id="todoText"
-              placeholder="Enter your todo here.."
-              className="rounded-r-none"
-            />
-          </div>
-          <Button type="submit" className="rounded-l-none">
-            Add Todo
-          </Button>
-        </form>
+        <TodoForm addTodo={this.addTodo} ref={this.todoText} />
+        <TodoList todoList={todoList} />
       </div>
     );
   }
