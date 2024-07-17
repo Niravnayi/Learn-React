@@ -16,6 +16,7 @@ const TodoForm = forwardRef(({ addTodo }, ref) => {
           id="todoText"
           placeholder="Enter your todo here.."
           className="rounded-r-none"
+          required
         />
       </div>
       <Button type="submit" className="rounded-l-none">

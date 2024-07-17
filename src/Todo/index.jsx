@@ -30,13 +30,39 @@ export default class Todo extends Component {
     );
   };
 
+  updateTodo = (item) => {
+    this.setState(({ todoList }) => {
+      const index = todoList.findIndex((x) => x.id === item.id);
+      return {
+        todoList: [
+          ...todoList.slice(0, index),
+          item,
+          ...todoList.slice(index + 1),
+        ],
+      };
+    });
+  };
+
+  deleteTodo = (item) => {
+    this.setState(({ todoList }) => {
+      const index = todoList.findIndex((x) => x.id === item.id);
+      return {
+        todoList: [...todoList.slice(0, index), ...todoList.slice(index + 1)],
+      };
+    });
+  };
+
   render() {
     const { todoList } = this.state;
     return (
       <div className="h-screen bg-slate-300 flex flex-col items-center p-4">
         <h1>Todo List</h1>
         <TodoForm addTodo={this.addTodo} ref={this.todoText} />
-        <TodoList todoList={todoList} />
+        <TodoList
+          todoList={todoList}
+          updateTodo={this.updateTodo}
+          deleteTodo={this.deleteTodo}
+        />
       </div>
     );
   }
