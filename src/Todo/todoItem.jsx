@@ -30,10 +30,10 @@ export default class TodoItem extends PureComponent {
 
   render() {
     console.log("todo item");
-    const { item, updateTodo, deleteTodo } = this.props;
+    const { item, updateTodo, deleteTodo, isLast, status } = this.props;
     const { isUpdating } = this.state;
     return (
-      <li className="list-none" key={item.id}>
+      <li className="list-none m-4" key={item.id}>
         <div className="flex items-center gap-4">
           <div>
             <Checkbox
@@ -54,7 +54,7 @@ export default class TodoItem extends PureComponent {
                 updateTodo({ ...item, text: this.editInput.current.value });
                 this.toggleUpdating();
               }}
-              className="flex flex-1 gap-4"
+              className="flex flex-1 gap-4 items-center"
             >
               <Input type="text" ref={this.editInput} />
               <Button size="icon" type="submit">
@@ -62,7 +62,7 @@ export default class TodoItem extends PureComponent {
               </Button>
             </form>
           ) : (
-            <div className="flex flex-1 gap-4">
+            <div className="flex flex-1 gap-4 items-center">
               <p
                 className={cn("!m-0 flex-1 line-clamp-3", {
                   "line-through": item.isDone,
@@ -75,11 +75,15 @@ export default class TodoItem extends PureComponent {
               </Button>
             </div>
           )}
-          <Button size="icon" onClick={() => deleteTodo(item)}>
+          <Button
+            disabled={status?.status === "loading"}
+            size="icon"
+            onClick={() => deleteTodo(item)}
+          >
             <Trash className="h-4 w-4" />
           </Button>
         </div>
-        <Separator className="my-4" />
+        {!isLast && <Separator className="my-4" />}
       </li>
     );
   }

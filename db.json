@@ -1,0 +1,39 @@
+{
+  "todoList": [
+    {
+      "id": "2aae",
+      "text": "learn reactfefewfwe",
+      "isDone": true
+    },
+    {
+      "id": "85e8",
+      "text": "learn fullter",
+      "isDone": true
+    },
+    {
+      "id": "fbcd",
+      "text": "get milk",
+      "isDone": false
+    },
+    {
+      "id": "1d3a",
+      "text": "af",
+      "isDone": true
+    },
+    {
+      "id": "7c1c",
+      "text": "sefc",
+      "isDone": false
+    },
+    {
+      "id": "6c2b",
+      "text": "s",
+      "isDone": false
+    },
+    {
+      "id": "27d1",
+      "text": "cfesdvew",
+      "isDone": false
+    }
+  ]
+}
