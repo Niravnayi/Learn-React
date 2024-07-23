@@ -57,7 +57,11 @@ export default class TodoItem extends PureComponent {
               className="flex flex-1 gap-4 items-center"
             >
               <Input type="text" ref={this.editInput} />
-              <Button size="icon" type="submit">
+              <Button
+                disabled={status?.status === "loading"}
+                size="icon"
+                type="submit"
+              >
                 <Check className="h-4 w-4" />
               </Button>
             </form>

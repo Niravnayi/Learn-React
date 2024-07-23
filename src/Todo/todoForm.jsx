@@ -3,7 +3,7 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 
-const TodoForm = forwardRef(({ addTodo }, ref) => {
+const TodoForm = forwardRef(({ addTodo, status }, ref) => {
   return (
     <form className="flex m-5" onSubmit={addTodo}>
       <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -19,7 +19,11 @@ const TodoForm = forwardRef(({ addTodo }, ref) => {
           required
         />
       </div>
-      <Button type="submit" className="rounded-l-none">
+      <Button
+        disabled={status?.status === "loading"}
+        type="submit"
+        className="rounded-l-none"
+      >
         Add Todo
       </Button>
     </form>
